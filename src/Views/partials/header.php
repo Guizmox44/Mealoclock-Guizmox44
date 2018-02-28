@@ -7,10 +7,26 @@
                 <i class="fas fa-bars"></i>
             </div>
             <div class="box box-search p-3">
-                <!-- L'image de la loupe -->
-                <i class="fas fa-search"></i>
-                <!-- Le champs de recherche -->
-                <input type="text" value="" placeholder="Rechercher...">
+
+                <!-- <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Dropdown button
+                </button> -->
+
+
+                <div class="dropdown">
+                    <!-- L'image de la loupe -->
+                    <i class="fas fa-search"></i>
+                    <!-- Le champs de recherche -->
+                    <input
+                        id="searchEvents"
+                        type="text"
+                        value=""
+                        placeholder="Rechercher..."
+                    >
+                    <div class="dropdown-menu"></div>
+                </div>
+
+
             </div>
             <div class="box p-3">
                 <a href="#">

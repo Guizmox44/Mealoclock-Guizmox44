@@ -73,3 +73,9 @@ body {
   background:#f1484B;
   border:none;
 }
+
+#searchResults {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+}

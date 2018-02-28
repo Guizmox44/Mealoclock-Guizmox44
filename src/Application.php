@@ -55,10 +55,11 @@ class Application {
         $this->router->map('GET', '/events', ['EventController', 'list'], 'events');
         // Page d'un évènement
         $this->router->map('GET', '/events/[i:id]', ['EventController', 'read'], 'event');
-        
+
         $this->router->map('GET', '/events/[i:id]/signupdate', ['EventController', 'signupdate'], 'events_signupdate');
         $this->router->map('GET', '/events/create', ['EventController', 'create'], 'events_create');
-        $this->router->map('GET', '/events/search', ['EventController', 'search'], 'events_search');
+
+        $this->router->map('POST', '/events/search', ['EventController', 'search'], 'events_search');
         // /admin/event/123/update
         // /profile/event/123/update
         $this->router->map('GET', '/[admin|profile:domain]/events/[i:id]/update', ['EventController', 'update'], 'events_update');

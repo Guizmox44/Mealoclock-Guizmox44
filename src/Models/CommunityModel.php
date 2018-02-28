@@ -2,7 +2,12 @@
 
 namespace MealOclock\Models;
 
-class CommunityModel {
+class CommunityModel extends CoreModel {
+
+    // Les propriétés qui nous servent
+    // à construire nos requêtes SQL
+    protected static $tableName = 'communities';
+    protected static $orderBy = 'name';
 
     private $id;
     private $name;
@@ -12,20 +17,20 @@ class CommunityModel {
     private $creator_id;
 
     // Retourne la liste des communautés
-    public static function findAll() {
-
-        // On récupère la connexion à la BDD
-        $conn = \MealOclock\Utils\Database::getDB();
-
-        // On crée la requête SQL de récupération des données
-        $sql = 'SELECT * FROM communities ORDER BY name';
-
-        // On exécute la requête
-        $stmt = $conn->query($sql);
-
-        // On récupère tous les résultats
-        return $stmt->fetchAll(\PDO::FETCH_CLASS, '\MealOclock\Models\CommunityModel');
-    }
+    // public static function findAll() {
+    //
+    //     // On récupère la connexion à la BDD
+    //     $conn = \MealOclock\Utils\Database::getDB();
+    //
+    //     // On crée la requête SQL de récupération des données
+    //     $sql = 'SELECT * FROM communities ORDER BY name';
+    //
+    //     // On exécute la requête
+    //     $stmt = $conn->query($sql);
+    //
+    //     // On récupère tous les résultats
+    //     return $stmt->fetchAll(\PDO::FETCH_CLASS, '\MealOclock\Models\CommunityModel');
+    // }
 
 
     public static function findBySlug ($slug) {
