@@ -28,6 +28,7 @@ class Application {
         // On récupère donc la partie de l'URL qui
         // est fixe grâce à $_SERVER['BASE_URI']
         $basePath = isset($_SERVER['BASE_URI']) ? $_SERVER['BASE_URI'] : '';
+        // $basePath = '/oclock/temp/mealoclock';
 
         // On renseigne la partie de l'URL fixe
         $this->router->setBasePath($basePath);
@@ -90,7 +91,7 @@ class Application {
         // Connexion
         // ---------------------------
         // Page de création de compte
-        $this->router->map('GET', '/signup', ['UserController', 'create'], 'signup');
+        $this->router->map('GET|POST', '/signup', ['UserController', 'create'], 'signup');
         // Page de connexion
         $this->router->map('GET', '/login', ['UserController', 'login'], 'login');
         // Page de déconnexion
@@ -107,6 +108,7 @@ class Application {
         $this->router->map('GET', '/profile', ['MemberController', 'read'], 'profile');
         // Page de modification des informations du profil
         $this->router->map('GET', '/profile/update', ['MemberController', 'update'], 'profil_update');
+        $this->router->map('GET', '/members', ['MemberController', 'list'], 'member_list');
     }
 
     public function run () {

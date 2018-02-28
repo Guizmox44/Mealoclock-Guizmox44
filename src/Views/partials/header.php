@@ -35,19 +35,25 @@
             </div>
             <div class="box can-hover p-3">
                 <i class="fas fa-edit"></i>
-                Inscription
+                <a href="<?=$router->generate('signup')?>">Inscription</a>
             </div>
             <div class="box can-hover p-3">
                 <i class="fas fa-sign-in-alt"></i>
-                Connexion
+                <a href="<?=$router->generate('login')?>">Connexion</a>
             </div>
         </div>
 
         <!-- Deuxième ligne de menu -->
         <div class="subnav d-flex justify-content-between w-100">
-            <div class="box p-3">Communautés</div>
-            <div class="box p-3">Évènements</div>
-            <div class="box p-3">Membres</div>
+            <div class="box p-3">
+                <a href="<?=$router->generate('home')?>">Communautés</a>
+            </div>
+            <div class="box p-3">
+                <a href="<?=$router->generate('events')?>">Évènements</a>
+            </div>
+            <div class="box p-3">
+                <a href="<?=$router->generate('member_list')?>">Membres</a>
+            </div>
             <div class="box p-3">Twitter</div>
             <div class="box p-3">Facebook</div>
         </div>

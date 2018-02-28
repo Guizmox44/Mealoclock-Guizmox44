@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost
--- Généré le :  lun. 26 fév. 2018 à 16:03
+-- Généré le :  mer. 28 fév. 2018 à 14:15
 -- Version du serveur :  5.7.19
 -- Version de PHP :  7.1.7
 
@@ -89,7 +89,7 @@ CREATE TABLE `users` (
   `photo` varchar(1000) NOT NULL DEFAULT 'public/images/profil.jpg',
   `address` varchar(255) NOT NULL,
   `description` mediumtext NOT NULL,
-  `is_admin` tinyint(1) NOT NULL
+  `is_admin` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -97,7 +97,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `firstname`, `lastname`, `email`, `password`, `photo`, `address`, `description`, `is_admin`) VALUES
-(1, 'julien', 'poupouille', 'julien@oclock.io', '', 'public/images/profil.jpg', '', '', 1);
+(1, 'julien', 'poupouille', 'julien@oclock.io', '', 'public/images/profil.jpg', '', '', 1),
+(4, 'Toto', 'lasticot', 'toto@gmail.com', '$2y$10$jNcbXcLY50dM/5ikzC6dUunLPuDQoQwF9ekyihEEWJqktlT298aXe', 'public/images/profil.jpg', '3 rue des gigolos, 66 600 Oulche la vallée foulon', '                                                non....                                                                                                                                                ', 0),
+(5, 'Toto', 'lasticot', 'toto@gmail.com', '$2y$10$Q/sB0w0wLmDolqP1UH4YTuxEHF.dPFUYg93C2hbOYd6q/dJw.JwSa', 'public/images/profil.jpg', '3 rue des gigolos, 66 600 Oulche la vallée foulon', '                                                                        non....                                                                                                                                                                    ', 0);
 
 -- --------------------------------------------------------
 
@@ -166,7 +168,7 @@ ALTER TABLE `users_events`
 -- AUTO_INCREMENT pour la table `communities`
 --
 ALTER TABLE `communities`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT pour la table `events`
@@ -178,7 +180,7 @@ ALTER TABLE `events`
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
