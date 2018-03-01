@@ -33,14 +33,21 @@
                     <img src="<?=$baseUrl?>/public/images/title.svg" alt="mealoclock">
                 </a>
             </div>
-            <div class="box can-hover p-3">
-                <i class="fas fa-edit"></i>
-                <a href="<?=$router->generate('signup')?>">Inscription</a>
-            </div>
-            <div class="box can-hover p-3">
-                <i class="fas fa-sign-in-alt"></i>
-                <a href="<?=$router->generate('login')?>">Connexion</a>
-            </div>
+            <?php if ($user): ?>
+                <div class="box can-hover p-3">
+                    <i class="fas fa-edit"></i>
+                    <a href="<?=$router->generate('logout')?>">Déconnexion</a>
+                </div>
+            <?php else: ?>
+                <div class="box can-hover p-3">
+                    <i class="fas fa-edit"></i>
+                    <a href="<?=$router->generate('signup')?>">Inscription</a>
+                </div>
+                <div class="box can-hover p-3">
+                    <i class="fas fa-sign-in-alt"></i>
+                    <a href="<?=$router->generate('login')?>">Connexion</a>
+                </div>
+            <?php endif; ?>
         </div>
 
         <!-- Deuxième ligne de menu -->

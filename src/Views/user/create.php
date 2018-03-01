@@ -9,7 +9,8 @@
                     <div class="alert alert-danger"><?=$error?></div>
                 <?php endforeach; ?>
             <?php endif; ?>
-            <form action="<?=$router->generate('signup')?>" method="post">
+            <form id="subscription"
+            action="<?=$router->generate('signup')?>" method="post">
                 <div class="form-group">
                     <label for="firstname">Ton prénom</label>
                     <input

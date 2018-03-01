@@ -37,7 +37,14 @@ class UserController extends CoreController {
                 // On peut rediriger notre utilisateur sur
                 // la page de connexion
                 // header('Location: /oclock/temp/mealoclock/login');
-                header('Location: ' . $this->router->generate('login') );
+                //header('Location: ' . $this->router->generate('login') );
+                echo 'OK';
+                exit();
+            }
+            else {
+
+                echo json_encode($errors);
+                exit();
             }
         }
 
@@ -48,12 +55,42 @@ class UserController extends CoreController {
     // gère la connexion
     public function login() {
 
-        echo $this->templates->render('user/login');
+        $errors = [];
+
+        if (!empty($_POST)) {
+
+            // Un visiteur essaie de se connecter
+            // On vérifie l'email + mot de passe
+            // pour savoir si le compte existe bien
+            $email = $_POST['email'];
+            $password = $_POST['password'];
+
+            // On vérifie si le compte existe
+            $user = \MealOclock\Models\UserModel::checkAccount( $email, $password );
+
+            if (!$user) {
+
+                // C'est pas bon, on s'arrête là
+                $errors[] = 'Le compte n\'existe pas';
+            }
+            else {
+
+                // On connecte notre utilisateur
+                \MealOclock\Models\UserModel::connect( $user );
+                header('Location: ' . $this->router->generate('home'));
+                exit();
+            }
+        }
+
+        // On affiche le template
+        echo $this->templates->render('user/login', [ 'errors' => $errors ]);
     }
 
     // Permet de se déconnecter
     public function logout() {
 
+        \MealOclock\Models\UserModel::disconnect();
+        header('Location: ' . $this->router->generate('home'));
     }
 
     // Affiche la page d'oublie de mot de passe

@@ -23,11 +23,13 @@ class CoreController {
 
         // $basePath = '/oclock/temp/mealoclock';
         $basePath = isset($_SERVER['BASE_URI']) ? $_SERVER['BASE_URI'] : '';
+
         // On ajoute les données disponibles dans tous les templates
         $this->templates->addData([
             'baseUrl' => $basePath,
             // 'leNomDeLaDonnee' => 'LaValeur'
-            'router' => $this->router
+            'router' => $this->router,
+            'user' => \MealOclock\Models\UserModel::getUser()
         ]);
     }
 }

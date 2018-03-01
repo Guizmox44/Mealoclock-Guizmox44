@@ -50,6 +50,85 @@ class UserModel extends CoreModel {
         return $this->firstname .' '. $this->lastname;
     }
 
+    // Vérifie si le compte existe, et retourne les données du compte
+    public static function checkAccount( $email, $password ) {
+
+        // On récupère toutes les données de l'utilisateur
+        // qui possède cette adresse mail. Si il n'existe
+        // pas, ça nous retourne "false"
+        $user = self::findByMail( $email );
+
+        if ($user) {
+
+            // On a bien un utilisateur qui correspond
+            // password_verify($typedPassword, $dbPassword)
+            $isOk = password_verify($password, $user->getPassword());
+
+            if ($isOk) {
+
+                // Le mot de passe est le bon, on continue
+                return $user;
+            }
+            else {
+
+                // Mauvais mot de passe, on arrête
+                return false;
+            }
+        }
+        else {
+
+            // Adresse mail inconnue
+            return false;
+        }
+    }
+
+    // Crée la session de l'utilisateur
+    public static function connect( $user ) {
+
+        // On va stocker en SESSION, les différentes
+        // informations dont on aura besoin
+        // Ce "$_SESSION['user']" va nous servir à
+        // savoir si l'utilisateur est connecté ou pas
+        $_SESSION['user'] = [
+            'id' => $user->getId(),
+            'firstname' => $user->getFirstname(),
+            'lastname' => $user->getLastname(),
+            'is_admin' => $user->getIsAdmin(),
+            'address' => $user->getAddress()
+        ];
+    }
+
+    public static function disconnect() {
+
+        unset($_SESSION['user']);
+        session_destroy();
+    }
+
+    // Indique si l'utilisateur est connecté ou pas
+    public static function isConnected() {
+
+        // if (isset($_SESSION['user'])) {
+        //     return true;
+        // }
+        // else {
+        //     return false;
+        // }
+
+        return isset( $_SESSION['user'] );
+    }
+
+    // Retourne les informations de l'utilisateur
+    public static function getUser() {
+
+        // Si l'utilisateur n'est pas connecté, on
+        // retounre la valeur "false"
+        if (!isset($_SESSION['user'])) return false;
+
+        // $_SESSION['user']['firstname']
+        // $_SESSION['user']->firstname
+        return (object) $_SESSION['user'];
+    }
+
     // Vérifie les données de création de compte
     public static function checkData( $data ) {
 
@@ -89,9 +168,40 @@ class UserModel extends CoreModel {
             $errors[] = "La confirmation du mot de passe n'est pas bonne";
         }
 
+        // On vérifie si l'adresse mail n'est pas déjà utilisée
+        // On recherche si un utilisateur possède cette adresse ou pas
+        $user = self::findByMail( $data['email'] );
+
+        if ($user !== false) {
+
+            $errors[] = "Cette adresse mail est déjà prise";
+        }
+
         // On retourne la liste des erreurs
         return $errors;
     }
+
+    public static function findByMail( $email ) {
+
+        // On récupère la connexion à la BDD
+        $conn = \MealOclock\Utils\Database::getDB();
+
+        // On construit une requête SQL
+        $sql = 'SELECT * FROM users WHERE email LIKE :email';
+
+        // On prépare notre requête
+        $stmt = $conn->prepare( $sql );
+        $stmt->bindValue(':email', $email, \PDO::PARAM_STR);
+
+        // On exécute la requête
+        $stmt->execute();
+
+        // On récupère le résultat
+        $stmt->setFetchMode(\PDO::FETCH_CLASS, static::class);
+        return $stmt->fetch(\PDO::FETCH_CLASS);
+    }
+
+
     /**
      * Get the value of Id
      *
