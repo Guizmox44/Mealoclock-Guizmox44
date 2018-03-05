@@ -73,16 +73,20 @@ class Application {
         // ---------------------------
         // Admin
         // ---------------------------
+        $this->router->map('GET', '/admin', ['AdminController', 'home'], 'admin');
         $this->router->map('GET', '/admin/communities', ['AdminCommunityController', 'list'], 'admin_communities');
         $this->router->map('GET', '/admin/communities/create', ['AdminCommunityController', 'create'], 'admin_communities_create');
         $this->router->map('GET', '/admin/communities/[i:id]/update', ['AdminCommunityController', 'update'], 'admin_communities_update');
+        // Suppression d'une communauté
         $this->router->map('GET', '/admin/communities/[i:id]/delete', ['AdminCommunityController', 'delete'], 'admin_communities_delete');
 
         $this->router->map('GET', '/admin/events', ['AdminEventController', 'list'], 'admin_events');
+        // Suppression d'un évènement
         $this->router->map('GET', '/admin/events/[i:id]/delete', ['AdminEventController', 'delete'], 'admin_events_delete');
         $this->router->map('GET', '/admin/events/[i:id]/update', ['AdminEventController', 'update'], 'admin_events_update');
 
         $this->router->map('GET', '/admin/members', ['AdminMemberController', 'list'], 'admin_members');
+        // Suppression d'un membre
         $this->router->map('GET', '/admin/members/[i:id]/delete', ['AdminMemberController', 'delete'], 'admin_member_delete');
         $this->router->map('GET', '/admin/members/[i:id]/update/status', ['AdminMemberController', 'status'], 'admin_member_status');
         $this->router->map('GET', '/admin/members/[i:id]/update/role', ['AdminMemberController', 'role'], 'admin_member_role');
@@ -93,7 +97,7 @@ class Application {
         // Page de création de compte
         $this->router->map('GET|POST', '/signup', ['UserController', 'create'], 'signup');
         // Page de connexion
-        $this->router->map('GET', '/login', ['UserController', 'login'], 'login');
+        $this->router->map('GET|POST', '/login', ['UserController', 'login'], 'login');
         // Page de déconnexion
         $this->router->map('GET', '/logout', ['UserController', 'logout'], 'logout');
         // Page d'oubli de mot de passe

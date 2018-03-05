@@ -1,5 +1,6 @@
 var app = {
-  basePath: '/oclock/temp/mealoclock',
+  googleApiKey: 'AIzaSyCCOf00DC-sON25F-Dj_NIH_kv4FqxOfLA',
+  basePath: BASE_PATH,
   init: function() {
 
     // On cible le champs de recherche
@@ -7,6 +8,68 @@ var app = {
 
     // On cible le formulaire d'inscription
     $('#subscription').on('submit', app.subscription);
+
+    // On lance l'affichage de la Google Map
+    app.initEventMap();
+    app.initMap();
+  },
+  initMap: function() {
+
+    // Je ne lance le code que si on est sur la bonne page
+    if ($('#eventListMap').length == 0) return;
+    var map = new MyMap('eventListMap', {});
+    eventsAddress.forEach( map.addMarker.bind(map) );
+
+    // eventsAddress.forEach((address) => {
+    //
+    //   map.addMarker(address);
+    // });
+  },
+  // Lance l'affichage de la google map uniquement
+  // sur la page d'un évènement
+  initEventMap: function() {
+
+    // On regarde si notre "div" est présente ou pas
+    // ou dans la page (si oui, c'est qu'on est dans
+    // la page d'un évènement)
+    if ( $('#eventMap').length == 0 ) return;
+
+    var address = $('#eventMap').data('address');
+
+    var geocoder = new google.maps.Geocoder();
+
+    geocoder.geocode(
+      { 'address': address },
+      function(results, status) {
+
+        if (status == 'OK') {
+
+          var gps = results[0].geometry.location;
+
+          // On construit la google map
+          var map = new google.maps.Map(
+            // on lui passe l'élément du DOM où sera
+            // affichée notre map
+            $('#eventMap').get(0),
+            // On lui passe des configurations
+            {
+              center: gps,
+              zoom: 16
+            }
+          );
+
+          // On crée un marker
+          var marker = new google.maps.Marker({
+            map: map,
+            position: gps
+          });
+
+        } else {
+
+          console.log('Geocode was not successful for the following reason: ' + status);
+        }
+      }
+    );
   },
   // Gère la validation du formulaire
   subscription: function(evt) {
@@ -152,7 +215,7 @@ var app = {
     // => <a class="dropdown-item" href="#">Action</a>
     var a = $('<a>')
       .addClass('dropdown-item')
-      .attr('href', '/oclock/temp/mealoclock/events/' + ev.id)
+      .attr('href', app.basePath + '/events/' + ev.id)
       .text(ev.title);
 
     // On ajoute l'évènement à la liste

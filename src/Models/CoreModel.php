@@ -26,4 +26,40 @@ class CoreModel {
         // On récupère tous les résultats
         return $stmt->fetchAll(\PDO::FETCH_CLASS, static::class);
     }
+
+    // Retourne un enregistrement d'une table
+    public static function find( $id ) {
+
+        // On récupère la connexion à la BDD
+        $conn = \MealOclock\Utils\Database::getDB();
+
+        // On construit la requête SQL
+        $sql = 'SELECT * FROM ' . static::$tableName . ' WHERE id=:id';
+
+        // On prépare la requête
+        $stmt = $conn->prepare( $sql );
+        $stmt->bindValue(':id', $id, \PDO::PARAM_INT);
+
+        // On exécute la requête
+        $stmt->execute();
+
+        // On récupère le résultat
+        $stmt->setFetchMode(\PDO::FETCH_CLASS, static::class);
+        return $stmt->fetch();
+    }
+
+    // Supprime le model en BDD
+    public function delete() {
+
+        $id = $this->id;
+
+        // On récupère la connexion à la BDD
+        $conn = \MealOclock\Utils\Database::getDB();
+
+        // On construit la requête SQL
+        $sql = 'DELETE FROM ' . static::$tableName . ' WHERE id=' . $id;
+
+        // On exécute la requête
+        return $conn->exec($sql);
+    }
 }

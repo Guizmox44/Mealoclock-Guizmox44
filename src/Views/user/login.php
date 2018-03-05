@@ -2,8 +2,9 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-6 m-auto">
-            <form action="<?=$router->generate('login')?>" method="post">
+        <div class="area col-md-6 m-auto">
+            <h1>Connexion</h1>
+            <form id="signin-form" action="<?=$router->generate('login')?>" method="post">
                 <div class="form-group">
                     <label for="email">Ton email</label>
                     <input

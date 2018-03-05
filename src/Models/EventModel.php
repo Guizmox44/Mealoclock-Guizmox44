@@ -9,15 +9,15 @@ class EventModel extends CoreModel {
     protected static $tableName = 'events';
     protected static $orderBy = 'event_date DESC';
 
-    private $id;
-    private $title;
-    private $description;
-    private $event_date;
-    private $limit_person;
-    private $address;
-    private $cash;
-    private $creator_id;
-    private $community_id;
+    protected $id;
+    protected $title;
+    protected $description;
+    protected $event_date;
+    protected $limit_person;
+    protected $address;
+    protected $cash;
+    protected $creator_id;
+    protected $community_id;
 
     // public static function findAll() {
     //

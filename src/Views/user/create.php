@@ -4,13 +4,14 @@
     <div class="row">
         <div class="col-md-8 m-auto">
             <h1>Inscription</h1>
+
             <?php if (count($errors) > 0): ?>
                 <?php foreach($errors as $error): ?>
                     <div class="alert alert-danger"><?=$error?></div>
                 <?php endforeach; ?>
             <?php endif; ?>
-            <form id="subscription"
-            action="<?=$router->generate('signup')?>" method="post">
+
+            <form id="subscription" action="<?=$router->generate('signup')?>" method="post">
                 <div class="form-group">
                     <label for="firstname">Ton prénom</label>
                     <input

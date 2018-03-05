@@ -14,12 +14,11 @@
 <!-- On affiche les communautés -->
 <?php foreach ($communities as $community): ?>
 
-<!--
-    Pour chaque communauté, on appel le template "community"
-    Dans ce template, on doit disposer des informations de
-    la commaunauté, donc on les transmet dans le "insert"
- -->
-<?php $this->insert('main/community', [ 'community' => $community ])?>
+    <!--
+        Pour chaque communauté, on appel le template "community"
+        Dans ce template, on doit disposer des informations de
+        la commaunauté, donc on les transmet dans le "insert"
+     -->
+    <?php $this->insert('main/community', [ 'community' => $community ])?>
 
 <?php endforeach; ?>
-y

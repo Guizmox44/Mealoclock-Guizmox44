@@ -22,3 +22,14 @@
 </section>
 
 <?php endforeach; ?>
+
+<div id="eventListMap"></div>
+
+<script type="text/javascript">
+
+    var eventsAddress = [];
+    
+    <?php foreach($events as $event): ?>
+        eventsAddress.push("<?=$event->getAddress()?>");
+    <?php endforeach;?>
+</script>

@@ -2,7 +2,7 @@
 
 namespace MealOclock\Controllers;
 
-class CommunityController extends CoreController {
+class CommunityController extends AdminCoreController {
 
     // Affiche le détails d'une communauté
     public function read ( $params ) {

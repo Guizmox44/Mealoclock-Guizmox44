@@ -9,15 +9,15 @@ class UserModel extends CoreModel {
     protected static $tableName = 'users';
     protected static $orderBy = 'lastname';
 
-    private $id;
-    private $firstname;
-    private $lastname;
-    private $email;
-    private $password;
-    private $photo;
-    private $address;
-    private $description;
-    private $is_admin;
+    protected $id;
+    protected $firstname;
+    protected $lastname;
+    protected $email;
+    protected $password;
+    protected $photo;
+    protected $address;
+    protected $description;
+    protected $is_admin;
 
     // Enregistre les données en BDD
     public function save () {
@@ -93,14 +93,18 @@ class UserModel extends CoreModel {
             'id' => $user->getId(),
             'firstname' => $user->getFirstname(),
             'lastname' => $user->getLastname(),
-            'is_admin' => $user->getIsAdmin(),
+            'is_admin' => (bool) $user->getIsAdmin(),
             'address' => $user->getAddress()
         ];
     }
 
+    // Déconnecte l'utilisateur
     public static function disconnect() {
 
+        // On supprime les donnée de l'utilisateur en session
         unset($_SESSION['user']);
+        // On supprime même tout ce qui reste dans les sessions
+        // Concrêtement ça supprime le cookie
         session_destroy();
     }
 

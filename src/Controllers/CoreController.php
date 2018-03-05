@@ -7,11 +7,15 @@ class CoreController {
     // Va contenir l'objet Plates
     protected $templates;
     protected $router;
+    protected $user;
 
     public function __construct( $router ) {
 
         // On enregistre le router dans notre objet
         $this->router = $router;
+
+        // On enregistre l'utilisateur dans le controller
+        $this->user = \MealOclock\Models\UserModel::getUser();
 
         // On instancie notre moteur de templates
         // On lui indique où se trouvent tous nos templates
@@ -29,7 +33,16 @@ class CoreController {
             'baseUrl' => $basePath,
             // 'leNomDeLaDonnee' => 'LaValeur'
             'router' => $this->router,
-            'user' => \MealOclock\Models\UserModel::getUser()
+            'user' => $this->user
         ]);
+    }
+
+    // Fait une redirection HTTP
+    public function redirect( $routeName, $params=[] ) {
+
+        // On construit une redirection grâce à la méthode
+        // "generate" en passant uniquement le nom de la route
+        header('Location: ' . $this->router->generate( $routeName, $params ) );
+        exit();
     }
 }

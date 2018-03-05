@@ -8,11 +8,6 @@
             </div>
             <div class="box box-search p-3">
 
-                <!-- <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Dropdown button
-                </button> -->
-
-
                 <div class="dropdown">
                     <!-- L'image de la loupe -->
                     <i class="fas fa-search"></i>
@@ -29,11 +24,18 @@
 
             </div>
             <div class="box p-3">
-                <a href="#">
+                <a href="<?=$router->generate('home')?>">
                     <img src="<?=$baseUrl?>/public/images/title.svg" alt="mealoclock">
                 </a>
             </div>
             <?php if ($user): ?>
+                <?php if ($user->is_admin): ?>
+                    <div class="box can-hover p-3">
+                        <i class="fas fa-edit"></i>
+                        <a href="<?=$router->generate('admin')?>">Admin</a>
+                    </div>
+                <?php endif; ?>
+
                 <div class="box can-hover p-3">
                     <i class="fas fa-edit"></i>
                     <a href="<?=$router->generate('logout')?>">Déconnexion</a>
